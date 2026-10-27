@@ -1,0 +1,22 @@
+{
+  "name": "playwright-automation-framework",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test:cucumber": "node scripts/run-cucumber.js",
+    "test:cucumber:smoke": "npm run test:cucumber -- --tags @smoke",
+    "test:cucumber:regression": "npm run test:cucumber -- --tags @regression"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "@cucumber/cucumber": "^13.3.0",
+    "@cucumber/html-formatter": "^24.2.0",
+    "@playwright/test": "^1.64.1",
+    "@types/node": "^26.6.5",
+    "dotenv": "^18.0.9"
+  }
+}
