@@ -1,5 +1,5 @@
 
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 
 const now = new Date();
@@ -35,6 +35,7 @@ const latestReport = `<!DOCTYPE html>
 writeFileSync('reports/latest-report.html', latestReport);
 
 console.log(`Reports will be saved to: ${reportDir}`);
+console.log(`Test environment: ${process.env.TEST_ENV || 'dev'}`);
 
 const cucumberArgs = [
     'cucumber-js',
@@ -46,8 +47,25 @@ const cucumberArgs = [
     ...process.argv.slice(2)
 ];
 
+
 const result = spawnSync('npx', cucumberArgs, {
     stdio: 'inherit'
 });
 
+const reportPath = `${reportDir}/cucumber-report.html`;
+const html = readFileSync(reportPath, 'utf8');
+
+const environmentBanner = `
+    <div style="padding: 12px; background: #e8f0fe;
+                color: #174ea6; font-family: Arial, sans-serif;
+                font-weight: bold;">
+        Test Environment: ${process.env.TEST_ENV || 'dev'}
+    </div>
+`;
+
+const updatedHtml = html.replace('<body>', `<body>${environmentBanner}`);
+
+writeFileSync(reportPath, updatedHtml);
+
 process.exit(result.status ?? 1);
+

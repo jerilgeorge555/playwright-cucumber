@@ -1,4 +1,5 @@
 import {expect} from '@playwright/test';
+import { config } from '../config/env.js';
 
 
 
@@ -15,8 +16,8 @@ export class LoginPage{
     }
 
     navigate = async () => {
-        
-        await this.page.goto(`${process.env.BASE_URL}/login`);
+
+        await this.page.goto(`${config.baseUrl}/login`);
         await expect(this.heading).toHaveText('Login Page');
     }
 

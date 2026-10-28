@@ -4,10 +4,13 @@ import { CustomWorld } from './world.js';
 import { LoginPage } from '../pages/LoginPage.js';
 import { SecureAreaPage } from '../pages/SecureAreaPage.js';
 import 'dotenv/config';
+import { config } from '../config/env.js';
 
 setWorldConstructor(CustomWorld);
 
 Before(async function () {
+
+    console.log(`Running scenario in ${config.testEnv} environment`);
     // 1. Launch Chromium
     this.browser = await chromium.launch({ headless: false });
 
@@ -20,6 +23,8 @@ Before(async function () {
     // 4. Initialise LoginPage and SecureAreaPage
     this.loginPage = new LoginPage(this.page);
     this.secureAreaPage = new SecureAreaPage(this.page);
+
+    
 });
 
 AfterStep(async function (scenario) {
