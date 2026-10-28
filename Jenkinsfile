@@ -28,7 +28,7 @@ pipeline {
             steps {
                 sh '''
                     export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
-                    TEST_ENV=QA npm run test:cucumber:smoke
+                    TEST_ENV=qa npm run test:cucumber:smoke
                 '''
             }
         }
