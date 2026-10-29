@@ -12,7 +12,7 @@ Before(async function () {
 
     console.log(`Running scenario in ${config.testEnv} environment`);
     // 1. Launch Chromium
-    this.browser = await chromium.launch({ headless: false });
+    this.browser = await chromium.launch({ headless: true });
 
     // 2. Create a browser context
     this.context = await this.browser.newContext();
