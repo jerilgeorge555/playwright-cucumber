@@ -1,5 +1,5 @@
 
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 
 const now = new Date();
@@ -53,19 +53,24 @@ const result = spawnSync('npx', cucumberArgs, {
 });
 
 const reportPath = `${reportDir}/cucumber-report.html`;
-const html = readFileSync(reportPath, 'utf8');
 
-const environmentBanner = `
-    <div style="padding: 12px; background: #e8f0fe;
-                color: #174ea6; font-family: Arial, sans-serif;
-                font-weight: bold;">
-        Test Environment: ${process.env.TEST_ENV || 'dev'}
-    </div>
-`;
+if (existsSync(reportPath)) {
+    const html = readFileSync(reportPath, 'utf8');
 
-const updatedHtml = html.replace('<body>', `<body>${environmentBanner}`);
+    const environmentBanner = `
+        <div style="padding: 12px; background: #e8f0fe;
+                    color: #174ea6; font-family: Arial, sans-serif;
+                    font-weight: bold;">
+            Test Environment: ${process.env.TEST_ENV || 'dev'}
+        </div>
+    `;
 
-writeFileSync(reportPath, updatedHtml);
+    const updatedHtml = html.replace('<body>', `<body>${environmentBanner}`);
+
+    writeFileSync(reportPath, updatedHtml);
+} else {
+    console.warn(`Cucumber HTML report was not generated: ${reportPath}`);
+}
 
 process.exit(result.status ?? 1);
 
