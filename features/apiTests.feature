@@ -11,7 +11,7 @@ Feature: API Authentication
     And the authenticated email should be "emily.johnson@x.dummyjson.com"
     And the authenticated first name should be "Emily"
 
-  @api
+  @api @smoke
   Scenario: Verify authenticated user ID
     When the user requests their authenticated profile
     Then the API response status should be 200

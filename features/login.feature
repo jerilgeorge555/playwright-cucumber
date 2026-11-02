@@ -10,7 +10,7 @@ Feature: Verify Login Functionality
       | username | password             |
       | tomsmith | SuperSecretPassword! |
 
-  @regression @login
+  @smoke @login
   Scenario Outline: Verify Invalid Login
     Given the user is on Login Page
     When the user logs in using "<username>" and "<password>"
