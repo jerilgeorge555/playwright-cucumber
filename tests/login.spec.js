@@ -2,9 +2,6 @@
 import { expect} from '@playwright/test';
 import { test } from '../fixtures.js';
 
-import {LoginPage} from '../pages/LoginPage.js'
-import {SecureAreaPage} from '../pages/SecureAreaPage.js'
-
 
 test('Verify Page Load', async ({page}) => {
 

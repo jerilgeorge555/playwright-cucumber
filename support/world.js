@@ -8,7 +8,9 @@ export class CustomWorld extends World {
         this.page = undefined;
         this.loginPage = undefined;
         this.secureAreaPage = undefined;
-        // TODO: Initialise browser-related properties
-        // TODO: Initialise page object properties
+        this.apiRequest = null;
+        this.accessToken = null;
+        this.apiResponse = null;
+        this.apiResponseBody = null;
     }
 }

@@ -1,5 +1,6 @@
 import { Before, After, AfterStep, setWorldConstructor } from '@cucumber/cucumber';
 import { chromium } from 'playwright';
+import { request } from '@playwright/test';
 import { CustomWorld } from './world.js';
 import { LoginPage } from '../pages/LoginPage.js';
 import { SecureAreaPage } from '../pages/SecureAreaPage.js';
@@ -23,6 +24,8 @@ Before(async function () {
     // 4. Initialise LoginPage and SecureAreaPage
     this.loginPage = new LoginPage(this.page);
     this.secureAreaPage = new SecureAreaPage(this.page);
+
+    this.apiRequest = await request.newContext();
 
     
 });
@@ -51,6 +54,10 @@ After(async function () {
 
     if (this.browser) {
         await this.browser.close();
+    }
+
+    if (this.apiRequest) {
+    await this.apiRequest.dispose();
     }
 });
 
